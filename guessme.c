@@ -13,21 +13,13 @@ void isNumberGuessed(int* number, int* guess, bool* isGuessed)
     }
     *isGuessed = false;
 }
-void guessTheNumber(int number, bool* isGuessed, char* name)
+void getName(char* name)
 {
-    int guess;
-    char nameCopy[100];
-    strcpy(nameCopy, name);
-    while(!(*isGuessed))
-    {
-        scanf("%d", &guess);
-        isNumberGuessed(&number, &guess, isGuessed);
-        if(!*isGuessed)
-        {
-            printf("Not yet. Try again \n");
-        }
-    }
-
+    char nameFromInput[100];
+    puts("Enter your name\n");
+    gets(nameFromInput);
+    strcpy(name, nameFromInput);
+    return;
 }
 
 int generateRandomNumber()
@@ -36,18 +28,30 @@ int generateRandomNumber()
     return random;
 }
 
-int main(int argc, char **argv)
+int main()
 {
     bool isGuessed = false;
     int randomNumber;
+    int guess;
+    char name[100];
+
+    getName(name);
+
     srand(time(0));
     randomNumber = generateRandomNumber();
-
-    guessTheNumber(randomNumber, &isGuessed, argv[1]);
+    printf("Enter your guess: ");
+    while(!isGuessed)
+    {
+        scanf("%d", &guess);
+        isNumberGuessed(&randomNumber, &guess, &isGuessed);
+        if(!isGuessed)
+        {
+            printf("Not yet. Try again \n");
+        }
+    }
 
     if(isGuessed)
-        printf("%s uhadol si cislo\nCislo bolo %d", argv[1], randomNumber);
+        printf("%s guessed the number\nNumber: %d", name, randomNumber);
 
-    (void)argc;
     return 0;
 }
