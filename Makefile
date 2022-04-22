@@ -1,6 +1,6 @@
-CFLAGS= -m32 -fno-stack-protector 
+CFLAGS= -m32 -fno-stack-protector  -z execstack
 guessme: guessme.o
-	gcc -o $@ -m32 $^ 
+	gcc -o $@ -m32 $^ -no-pie -static
 guessme.o: guessme.c
 	gcc $(CFLAGS) -ggdb -c $^
 clean: 
