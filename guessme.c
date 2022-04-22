@@ -18,14 +18,13 @@ void getName(char* name)
     char nameFromInput[100];
     puts("Enter your name\n");
     gets(nameFromInput);
-    strcpy(name, nameFromInput);
     return;
 }
 
 int generateRandomNumber()
 {
     int random = rand()%100;
-    return random;
+    return 5;
 }
 
 int main()
@@ -42,16 +41,17 @@ int main()
     printf("Enter your guess: ");
     while(!isGuessed)
     {
-        scanf("%d", &guess);
+        if( scanf("%d", &guess) == 0)
+            break;
         isNumberGuessed(&randomNumber, &guess, &isGuessed);
         if(!isGuessed)
         {
             printf("Not yet. Try again \n");
         }
     }
-
+    
     if(isGuessed)
-        printf("%s guessed the number\nNumber: %d", name, randomNumber);
+        system("echo \"U won\"");
 
     return 0;
 }
